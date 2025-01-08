@@ -1,6 +1,3 @@
-Sure, here's the simplified version of your `README.md` file in plain Markdown:
-
-````markdown
 # React Native Profile App
 
 This is a React Native project for a user profile page. It includes various components like a top bar, middle bar with favorite items, and a navigation bar.
@@ -20,7 +17,6 @@ This is a React Native project for a user profile page. It includes various comp
    ```bash
    git clone https://github.com/your-username/your-project-name.git
    ```
-````
 
 2. Go to the project directory:
 

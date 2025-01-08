@@ -1,25 +1,9 @@
-I apologize for the oversight. Here is the complete Markdown code for your README file:
-
-````markdown
-# React Native Profile App
-
-This is a React Native project designed for a user profile page, integrating various components like a top bar, middle bar with favorite items, and a navigation bar. The application allows users to manage their profiles, view their activities, and easily navigate between different sections.
-
-## Features
-
-- **Profile Top Bar**: Displays user information and profile picture.
-- **Profile Middle Bar**: Shows a list of user-related actions (e.g., favorite restaurants, bookings).
-- **Navigation Bar**: Provides easy navigation between various sections of the app (Home, Restaurant, Search, Profile, Product).
-- **Dynamic UI**: Supports dark mode and light mode based on the system preferences.
-- **Notification Bar**: Displays a list of notifications with expandable descriptions.
-
-## Installation
-
 1. Clone the repository:
 
    ```bash
    git clone https://github.com/your-username/your-project-name.git
    ```
+
 ````
 
 2. Navigate into the project directory:
@@ -103,3 +87,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 Feel free to copy and paste this into your `README.md` file! Let me know if there are any other adjustments or additions you'd like.
 ```
+````

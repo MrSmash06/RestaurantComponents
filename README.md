@@ -1,50 +1,105 @@
-# Welcome to your Expo app 👋
+I apologize for the oversight. Here is the complete Markdown code for your README file:
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+````markdown
+# React Native Profile App
 
-## Get started
+This is a React Native project designed for a user profile page, integrating various components like a top bar, middle bar with favorite items, and a navigation bar. The application allows users to manage their profiles, view their activities, and easily navigate between different sections.
 
-1. Install dependencies
+## Features
+
+- **Profile Top Bar**: Displays user information and profile picture.
+- **Profile Middle Bar**: Shows a list of user-related actions (e.g., favorite restaurants, bookings).
+- **Navigation Bar**: Provides easy navigation between various sections of the app (Home, Restaurant, Search, Profile, Product).
+- **Dynamic UI**: Supports dark mode and light mode based on the system preferences.
+- **Notification Bar**: Displays a list of notifications with expandable descriptions.
+
+## Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/your-username/your-project-name.git
+   ```
+````
+
+2. Navigate into the project directory:
+
+   ```bash
+   cd your-project-name
+   ```
+
+3. Install dependencies:
 
    ```bash
    npm install
    ```
 
-2. Start the app
+   or if you're using Yarn:
 
    ```bash
-    npx expo start
+   yarn install
    ```
 
-In the output, you'll find options to open the app in a
+4. Run the app:
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+   ```bash
+   npx react-native run-android   # For Android
+   npx react-native run-ios       # For iOS
+   ```
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Components
 
-## Get a fresh project
+### 1. ProfileTopBar
 
-When you're ready, run:
+The profile top bar contains the user's name, email, and profile picture. It also includes a "View Activity" link that redirects the user to their activity page.
 
-```bash
-npm run reset-project
+### 2. ProfileMiddleBar
+
+The middle bar contains a list of user actions, such as viewing favorite restaurants, bookings, history, and more. The actions are represented with icons and titles, and each item navigates to a different page when pressed.
+
+### 3. NavigationBar
+
+A bottom navigation bar allows users to switch between different app sections like Home, Restaurant, Search, Profile, and Product. It dynamically changes color based on the selected tab and theme (dark or light mode).
+
+### 4. BackButton
+
+The back button provides a way to navigate back to the previous screen. It uses the Ionicons library to display a back arrow.
+
+### 5. NotificationBar
+
+This component displays a list of notifications. Each notification can be expanded or collapsed by tapping on it. The notifications contain a title, description, and timestamp.
+
+## Theme Support
+
+The app supports both light and dark themes, automatically switching between them based on the system's theme preference.
+
+- **Dark Mode**: Dark background with light text and icons.
+- **Light Mode**: Light background with dark text and icons.
+
+## Technologies Used
+
+- **React Native**: For building the mobile application.
+- **Expo**: For easier development, providing access to native APIs and libraries.
+- **Ionicons**: For using icons throughout the app.
+- **React Navigation**: For navigation management.
+- **React Context/State**: For managing theme and user state.
+
+## Contributing
+
+If you'd like to contribute to this project, feel free to fork it and submit a pull request. Any suggestions or improvements are welcome!
+
+1. Fork the repository
+2. Create a new branch (`git checkout -b feature-branch`)
+3. Make your changes
+4. Commit your changes (`git commit -am 'Add new feature'`)
+5. Push to the branch (`git push origin feature-branch`)
+6. Create a new pull request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Feel free to copy and paste this into your `README.md` file! Let me know if there are any other adjustments or additions you'd like.
+```

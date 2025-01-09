@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { Ionicons } from "@expo/vector-icons"; // Import Ionicons
+import { useRouter } from "expo-router";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -18,6 +19,11 @@ const NavigationBar = () => {
 
   // Determine if dark mode is active
   const isDarkMode = systemTheme === "dark";
+
+  const router = useRouter(); // Initialize useRouter
+  const handleItemPress = (path: string) => {
+    router.push(path); // Navigates to the given path
+  };
 
   return (
     <View
@@ -33,7 +39,10 @@ const NavigationBar = () => {
         ]}>
         <TouchableOpacity
           style={styles.tabButton}
-          onPress={() => setSelectedTab("Home")}>
+          onPress={() => {
+            setSelectedTab("Home");
+            handleItemPress("/components/Home/Home");
+          }}>
           <Ionicons
             name="home"
             size={24}
@@ -101,7 +110,10 @@ const NavigationBar = () => {
 
         <TouchableOpacity
           style={styles.tabButton}
-          onPress={() => setSelectedTab("Search")}>
+          onPress={() => {
+            setSelectedTab("Search");
+            handleItemPress("/components/Search/Search");
+          }}>
           <Ionicons
             name="search"
             size={24}
@@ -135,7 +147,10 @@ const NavigationBar = () => {
 
         <TouchableOpacity
           style={styles.tabButton}
-          onPress={() => setSelectedTab("Profile")}>
+          onPress={() => {
+            setSelectedTab("Profile");
+            handleItemPress("/components/Profile/Profile");
+          }}>
           <Ionicons
             name="person"
             size={24}

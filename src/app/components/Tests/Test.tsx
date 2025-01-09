@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Dimensions } from "react-native";
+import { View, Text, StyleSheet, Dimensions, TextInput } from "react-native";
 import React from "react";
 
 const screenWidth = Dimensions.get("window").width;
@@ -8,9 +8,13 @@ const Test = () => {
   return (
     <View>
       <View style={styles.container1}>
-        <Text>Hi</Text>
+        <Text style={{ color: "red" }}>Hi</Text>
       </View>
-      <View style={styles.container2}></View>
+      <View style={styles.container2}>
+        <TextInput
+          style={styles.input}
+          placeholder="Lakh Ahiya ..."></TextInput>
+      </View>
       <View style={styles.container3}></View>
       <View></View>
     </View>
@@ -42,6 +46,21 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: screenWidth,
     height: screenHeight * 0.25,
+  },
+  input: {
+    backgroundColor: "#fff",
+    padding: 10,
+    width: screenWidth * 0.7,
+    marginLeft: screenWidth * 0.05,
+    marginRight: screenWidth * 0.1,
+    marginBottom: 10,
+    borderRadius: 5,
+    borderColor: "#ccc",
+    borderWidth: 1,
+    fontSize: 16,
+    color: "#000",
+    textAlign: "center",
+    // alignContent: "center",
   },
 });
 

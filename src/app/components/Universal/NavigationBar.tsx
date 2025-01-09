@@ -29,10 +29,14 @@ const NavigationBar = () => {
   };
 
   // 4. Helper: which tab is active?
-  //    For simplicity, you can do an exact check or “startsWith” check
-  const isActive = (path: string) => pathname === path;
-  // or if you use nested routes or dynamic segments, you might do:
-  //   const isActive = (path: string) => pathname.startsWith(path);
+  const isActive = (path: string) => {
+    // If the route is the root "/", treat it the same as "/components/Home/Home"
+    if (path === "/components/Home/Home" && pathname === "/") {
+      return true;
+    }
+    // Otherwise, do exact match
+    return pathname === path;
+  };
 
   return (
     <View style={styles.container}>
@@ -181,7 +185,7 @@ const NavigationBar = () => {
         {/* =============== Product Tab =============== */}
         <TouchableOpacity
           style={styles.tabButton}
-          onPress={() => handleItemPress("/components/Profile/Product")}>
+          onPress={() => handleItemPress("/components/Product/Product")}>
           <Ionicons
             name="pricetag"
             size={24}
@@ -199,7 +203,7 @@ const NavigationBar = () => {
             style={[
               styles.tabText,
               {
-                color: isActive("/components/Profile/Product")
+                color: isActive("/components/Product/Product")
                   ? isDarkMode
                     ? "#FFF"
                     : "#000"

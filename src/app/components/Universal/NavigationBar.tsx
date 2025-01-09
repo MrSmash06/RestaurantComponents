@@ -6,48 +6,51 @@ import {
   Dimensions,
   useColorScheme,
 } from "react-native";
-import React, { useState } from "react";
-import { Ionicons } from "@expo/vector-icons"; // Import Ionicons
-import { useRouter } from "expo-router";
+import React from "react";
+import { Ionicons } from "@expo/vector-icons";
+import { useRouter, usePathname } from "expo-router";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
 const NavigationBar = () => {
   const systemTheme = useColorScheme();
-  const [selectedTab, setSelectedTab] = useState("Home");
+  const router = useRouter();
 
-  // Determine if dark mode is active
+  // 1. Grab the current path
+  const pathname = usePathname();
+
+  // 2. Determine if dark mode is active
   const isDarkMode = systemTheme === "dark";
 
-  const router = useRouter(); // Initialize useRouter
+  // 3. Function to navigate
   const handleItemPress = (path: string) => {
-    router.push(path); // Navigates to the given path
+    router.push(path);
   };
 
+  // 4. Helper: which tab is active?
+  //    For simplicity, you can do an exact check or “startsWith” check
+  const isActive = (path: string) => pathname === path;
+  // or if you use nested routes or dynamic segments, you might do:
+  //   const isActive = (path: string) => pathname.startsWith(path);
+
   return (
-    <View
-      style={[
-        styles.container,
-        { backgroundColor: isDarkMode ? "transparent" : "transparent" },
-      ]}>
+    <View style={styles.container}>
       {/* Bottom Navigation Bar */}
       <View
         style={[
           styles.tabBar,
           { backgroundColor: isDarkMode ? "#121212" : "#FFF" },
         ]}>
+        {/* =============== Home Tab =============== */}
         <TouchableOpacity
           style={styles.tabButton}
-          onPress={() => {
-            setSelectedTab("Home");
-            handleItemPress("/components/Home/Home");
-          }}>
+          onPress={() => handleItemPress("/components/Home/Home")}>
           <Ionicons
             name="home"
             size={24}
             color={
-              selectedTab === "Home"
+              isActive("/components/Home/Home")
                 ? isDarkMode
                   ? "#FFF"
                   : "#000"
@@ -60,28 +63,28 @@ const NavigationBar = () => {
             style={[
               styles.tabText,
               {
-                color:
-                  selectedTab === "Home"
-                    ? isDarkMode
-                      ? "#FFF"
-                      : "#000"
-                    : isDarkMode
-                    ? "gray"
-                    : "#aaa",
+                color: isActive("/components/Home/Home")
+                  ? isDarkMode
+                    ? "#FFF"
+                    : "#000"
+                  : isDarkMode
+                  ? "gray"
+                  : "#aaa",
               },
             ]}>
             Home
           </Text>
         </TouchableOpacity>
 
+        {/* =============== Restaurant Tab =============== */}
         <TouchableOpacity
           style={styles.tabButton}
-          onPress={() => setSelectedTab("Restaurant")}>
+          onPress={() => handleItemPress("/components/Restaurant/Restaurant")}>
           <Ionicons
             name="restaurant"
             size={24}
             color={
-              selectedTab === "Restaurant"
+              isActive("/components/Restaurant/Restaurant")
                 ? isDarkMode
                   ? "#FFF"
                   : "#000"
@@ -94,31 +97,28 @@ const NavigationBar = () => {
             style={[
               styles.tabText,
               {
-                color:
-                  selectedTab === "Restaurant"
-                    ? isDarkMode
-                      ? "#FFF"
-                      : "#000"
-                    : isDarkMode
-                    ? "gray"
-                    : "#aaa",
+                color: isActive("/components/Restaurant/Restaurant")
+                  ? isDarkMode
+                    ? "#FFF"
+                    : "#000"
+                  : isDarkMode
+                  ? "gray"
+                  : "#aaa",
               },
             ]}>
             Restaurant
           </Text>
         </TouchableOpacity>
 
+        {/* =============== Search Tab =============== */}
         <TouchableOpacity
           style={styles.tabButton}
-          onPress={() => {
-            setSelectedTab("Search");
-            handleItemPress("/components/Search/Search");
-          }}>
+          onPress={() => handleItemPress("/components/Search/Search")}>
           <Ionicons
             name="search"
             size={24}
             color={
-              selectedTab === "Search"
+              isActive("/components/Search/Search")
                 ? isDarkMode
                   ? "#FFF"
                   : "#000"
@@ -131,31 +131,28 @@ const NavigationBar = () => {
             style={[
               styles.tabText,
               {
-                color:
-                  selectedTab === "Search"
-                    ? isDarkMode
-                      ? "#FFF"
-                      : "#000"
-                    : isDarkMode
-                    ? "gray"
-                    : "#aaa",
+                color: isActive("/components/Search/Search")
+                  ? isDarkMode
+                    ? "#FFF"
+                    : "#000"
+                  : isDarkMode
+                  ? "gray"
+                  : "#aaa",
               },
             ]}>
             Search
           </Text>
         </TouchableOpacity>
 
+        {/* =============== Profile Tab =============== */}
         <TouchableOpacity
           style={styles.tabButton}
-          onPress={() => {
-            setSelectedTab("Profile");
-            handleItemPress("/components/Profile/Profile");
-          }}>
+          onPress={() => handleItemPress("/components/Profile/Profile")}>
           <Ionicons
             name="person"
             size={24}
             color={
-              selectedTab === "Profile"
+              isActive("/components/Profile/Profile")
                 ? isDarkMode
                   ? "#FFF"
                   : "#000"
@@ -168,28 +165,28 @@ const NavigationBar = () => {
             style={[
               styles.tabText,
               {
-                color:
-                  selectedTab === "Profile"
-                    ? isDarkMode
-                      ? "#FFF"
-                      : "#000"
-                    : isDarkMode
-                    ? "gray"
-                    : "#aaa",
+                color: isActive("/components/Profile/Profile")
+                  ? isDarkMode
+                    ? "#FFF"
+                    : "#000"
+                  : isDarkMode
+                  ? "gray"
+                  : "#aaa",
               },
             ]}>
             Profile
           </Text>
         </TouchableOpacity>
 
+        {/* =============== Product Tab =============== */}
         <TouchableOpacity
           style={styles.tabButton}
-          onPress={() => setSelectedTab("Product")}>
+          onPress={() => handleItemPress("/components/Profile/Product")}>
           <Ionicons
             name="pricetag"
             size={24}
             color={
-              selectedTab === "Product"
+              isActive("/components/Product/Product")
                 ? isDarkMode
                   ? "#FFF"
                   : "#000"
@@ -202,14 +199,13 @@ const NavigationBar = () => {
             style={[
               styles.tabText,
               {
-                color:
-                  selectedTab === "Product"
-                    ? isDarkMode
-                      ? "#FFF"
-                      : "#000"
-                    : isDarkMode
-                    ? "gray"
-                    : "#aaa",
+                color: isActive("/components/Profile/Product")
+                  ? isDarkMode
+                    ? "#FFF"
+                    : "#000"
+                  : isDarkMode
+                  ? "gray"
+                  : "#aaa",
               },
             ]}>
             Product
@@ -220,26 +216,23 @@ const NavigationBar = () => {
   );
 };
 
+export default NavigationBar;
+
 const styles = StyleSheet.create({
-  // container: {
-  //   zIndex: -1,
-  //   height: screenHeight * 0.12,
-  //   // backgroundColor: "#FFF",
-  //   // position: "absolute", // Positions the navigation bar at the top of the screen
-  // },
+  container: {
+    // any container styling
+  },
   tabBar: {
     height: screenHeight * 0.07,
     flexDirection: "row",
     justifyContent: "space-around",
     paddingTop: 10,
-    // paddingBottom: 10,
     borderTopWidth: 0.5,
     borderTopColor: "#ddd",
-    // position: "absolute", // Positions the tab bar at the bottom of the screen
     bottom: 0,
     left: 0,
-    right: 0, // Ensures the tab bar stretches across the whole width
-    zIndex: 10, // Makes sure the tab bar stays on top of content
+    right: 0,
+    zIndex: 10,
   },
   tabButton: {
     alignItems: "center",
@@ -249,5 +242,3 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
 });
-
-export default NavigationBar;

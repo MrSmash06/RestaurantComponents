@@ -8,13 +8,35 @@ import {
   FlatList,
   TouchableOpacity,
   Keyboard,
+  useColorScheme,
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
+// Themes for light and dark mode
+const themes = {
+  light: {
+    backgroundColor: "#fff",
+    textColor: "#000",
+    borderColor: "#ccc",
+    placeholderTextColor: "#888",
+    iconColor: "red",
+  },
+  dark: {
+    backgroundColor: "#000",
+    textColor: "#fff",
+    borderColor: "#555",
+    placeholderTextColor: "#aaa",
+    iconColor: "white",
+  },
+};
+
 const SearchRestro = () => {
+  const colorScheme = useColorScheme(); // Detects 'light' or 'dark'
+  const currentTheme = themes[colorScheme === "dark" ? "dark" : "light"];
+
   const [searchText, setSearchText] = useState("");
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
@@ -34,18 +56,15 @@ const SearchRestro = () => {
     };
   }, []);
 
-  // Whenever 'searchText' changes, we fetch from the server
+  // Whenever 'searchText' changes, fetch data
   useEffect(() => {
     if (searchText.trim().length === 0) {
-      // If empty, clear suggestions
       setSuggestions([]);
       return;
     }
-    // Otherwise, fetch the filtered restaurants
     fetch(`http://192.168.1.3:3000/api/search?term=${searchText}`)
       .then((response) => response.json())
       .then((data) => {
-        // data = { results: ["Applebee's", "Apex BBQ", ...] }
         setSuggestions(data.results);
       })
       .catch((error) => {
@@ -53,53 +72,85 @@ const SearchRestro = () => {
       });
   }, [searchText]);
 
-  // Render each suggestion
   const renderItem = ({ item }) => (
     <TouchableOpacity
       onPress={() => {
         alert(`You pressed ${item}`);
       }}
-      style={styles.suggestionItem}>
-      <Text style={styles.suggestionText}>{item}</Text>
+      style={[
+        styles.suggestionItem,
+        {
+          backgroundColor: currentTheme.backgroundColor,
+          shadowColor: colorScheme === "dark" ? "#fff" : "#000",
+          borderBottomColor: currentTheme.borderColor,
+        },
+      ]}>
+      <Text style={[styles.suggestionText, { color: currentTheme.textColor }]}>
+        {item}
+      </Text>
     </TouchableOpacity>
   );
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: currentTheme.backgroundColor },
+      ]}>
       <View style={styles.barContainer}>
-        {/* =============== SEARCH INPUT =============== */}
-        <View style={styles.searchBorder}>
+        <View
+          style={[
+            styles.searchBorder,
+            { borderColor: currentTheme.borderColor },
+          ]}>
           <TextInput
-            style={styles.input}
+            style={[styles.input, { color: currentTheme.textColor }]}
             placeholder="Lakh Ahiya ..."
+            placeholderTextColor={currentTheme.placeholderTextColor}
             value={searchText}
-            onChangeText={setSearchText} // Update state on typing
+            onChangeText={setSearchText}
           />
-          <MaterialIcons name="search" size={27} style={styles.searchicon} />
+          <MaterialIcons
+            name="search"
+            size={27}
+            style={[styles.searchicon, { color: currentTheme.iconColor }]}
+          />
         </View>
 
-        {/* =============== FILTER BUTTON =============== */}
-        <View style={styles.filterBorder}>
-          <Text style={styles.filtter}>Filtter</Text>
-          <MaterialIcons name="camera" size={27} style={styles.filttericon} />
+        <View
+          style={[
+            styles.filterBorder,
+            { borderColor: currentTheme.borderColor },
+          ]}>
+          <Text style={[styles.filtter, { color: currentTheme.textColor }]}>
+            Filtter
+          </Text>
+          <MaterialIcons
+            name="camera"
+            size={27}
+            style={[styles.filttericon, { color: currentTheme.iconColor }]}
+          />
         </View>
       </View>
 
-      {/**
-       * =============== SUGGESTIONS LIST ===============
-       * Show if:
-       *   1) Keyboard is visible
-       *   2) Some text is entered (non-empty)
-       * We do NOT require suggestions.length > 0, so that "No records found" can show.
-       */}
       {isKeyboardVisible && searchText.trim().length > 0 && (
-        <View style={styles.suggestions}>
+        <View
+          style={[
+            styles.suggestions,
+            { backgroundColor: currentTheme.backgroundColor },
+          ]}>
           <FlatList
             data={suggestions}
             renderItem={renderItem}
             keyExtractor={(item, index) => index.toString()}
             ListEmptyComponent={
-              <Text style={styles.noResults}>No records found</Text>
+              <Text
+                style={[
+                  styles.noResults,
+                  { color: currentTheme.placeholderTextColor },
+                ]}>
+                No records found
+              </Text>
             }
           />
         </View>
@@ -117,7 +168,6 @@ const styles = StyleSheet.create({
     width: screenWidth,
     position: "absolute",
     gap: 8,
-    backgroundColor: "#fff",
   },
   barContainer: {
     flexDirection: "row",
@@ -130,14 +180,7 @@ const styles = StyleSheet.create({
     height: screenHeight * 0.05,
     width: screenWidth * 0.6,
     borderWidth: 1,
-    borderColor: "#ccc",
     borderRadius: 5,
-    backgroundColor: "#fff",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    elevation: 5,
     justifyContent: "center",
     alignContent: "center",
   },
@@ -147,49 +190,30 @@ const styles = StyleSheet.create({
     height: "100%",
     position: "absolute",
     fontSize: 16,
-    color: "black",
   },
   searchicon: {
     position: "absolute",
     left: "86%",
-    color: "red",
   },
   filterBorder: {
     height: screenHeight * 0.05,
     width: screenWidth * 0.3,
     borderWidth: 1,
-    borderColor: "#ccc",
     borderRadius: 5,
-    backgroundColor: "#fff",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    elevation: 5,
     justifyContent: "center",
     alignContent: "center",
   },
   filttericon: {
     position: "absolute",
     left: "70%",
-    color: "red",
   },
   filtter: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#000",
     position: "absolute",
     left: "10%",
   },
-
-  /**
-   * Suggestions box:
-   * Use maxHeight to limit it to 40% of screen if lots of items,
-   * but shrink if fewer items (FlatList won't fill empty space).
-   */
   suggestions: {
-    backgroundColor: "red",
-    // Up to 40% of the screen, but can shrink if fewer items
     maxHeight: screenHeight * 0.4,
     width: screenWidth,
     borderRadius: 5,
@@ -197,10 +221,14 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   suggestionItem: {
-    backgroundColor: "#fff",
-    borderRadius: 5,
     padding: 10,
     marginBottom: 5,
+    borderBottomWidth: 1,
+    borderRadius: 5,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    elevation: 3,
   },
   suggestionText: {
     fontSize: 16,
@@ -208,6 +236,5 @@ const styles = StyleSheet.create({
   noResults: {
     textAlign: "center",
     marginTop: 5,
-    color: "#666",
   },
 });

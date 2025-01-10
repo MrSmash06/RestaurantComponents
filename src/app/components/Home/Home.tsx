@@ -1,28 +1,16 @@
 import { View, Text, StyleSheet, Dimensions, Image } from "react-native";
 import React from "react";
 import NavigationBar from "../Universal/NavigationBar";
+import RestroCard from "../Universal/RestroCard";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
 const Home = () => {
   return (
-    <View>
+    <View style={{ width: "100%", height: "100%" }}>
       <View style={styles.HomeContainer}>
-        <View style={styles.cardContainer}>
-          <View style={styles.imageContainer}>
-            <Image
-              source={require("../assets/profilePic.jpg")}
-              style={styles.image}
-            />
-            <Text style={styles.timing}> 8 : 00 Am to 9 : 00 Pm </Text>
-            <Text style={styles.date}> Monday, 15th September</Text>
-          </View>
-          <View style={styles.dataContainer}>
-            <Text style={styles.name}>John Doe</Text>
-            <Text style={styles.description}>Software Engineer</Text>
-          </View>
-        </View>
+        <RestroCard />
       </View>
       <View style={styles.navigation}>
         <NavigationBar />

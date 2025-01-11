@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   Keyboard,
   useColorScheme,
+  Image,
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
@@ -47,7 +48,7 @@ const SearchRestro = () => {
       setIsKeyboardVisible(true)
     );
     const hideSub = Keyboard.addListener("keyboardDidHide", () =>
-      setIsKeyboardVisible(false)
+      setIsKeyboardVisible(true)
     );
 
     return () => {
@@ -66,6 +67,7 @@ const SearchRestro = () => {
       .then((response) => response.json())
       .then((data) => {
         setSuggestions(data.results);
+        console.log(data);
       })
       .catch((error) => {
         console.error("Error fetching search results:", error);
@@ -75,7 +77,10 @@ const SearchRestro = () => {
   const renderItem = ({ item }) => (
     <TouchableOpacity
       onPress={() => {
-        alert(`You pressed ${item}`);
+        alert(
+          `You pressed hotel : ${item.name} and its description : ${item.description}`
+        );
+        console.log(item.name, item.url);
       }}
       style={[
         styles.suggestionItem,
@@ -85,9 +90,24 @@ const SearchRestro = () => {
           borderBottomColor: currentTheme.borderColor,
         },
       ]}>
-      <Text style={[styles.suggestionText, { color: currentTheme.textColor }]}>
-        {item}
-      </Text>
+      <View>
+        <Image source={{ uri: item.url }} style={styles.imageSuggest} />
+      </View>
+      <View style={{ height: "100%", width: "80%" }}>
+        <Text
+          style={[styles.suggestionText, { color: currentTheme.textColor }]}>
+          {item.name}
+        </Text>
+        <Text
+          style={[
+            styles.suggestionDesc,
+            { color: currentTheme.placeholderTextColor },
+          ]}
+          numberOfLines={2}
+          ellipsizeMode="tail">
+          {item.description}
+        </Text>
+      </View>
     </TouchableOpacity>
   );
 
@@ -214,13 +234,16 @@ const styles = StyleSheet.create({
     left: "10%",
   },
   suggestions: {
-    maxHeight: screenHeight * 0.4,
-    width: screenWidth,
+    maxHeight: screenHeight * 0.5,
+    width: screenWidth * 0.98,
     borderRadius: 5,
     marginTop: 10,
     padding: 10,
   },
   suggestionItem: {
+    width: "100%",
+    // textOverflow: "hidden",
+    flexDirection: "row",
     padding: 10,
     marginBottom: 5,
     borderBottomWidth: 1,
@@ -231,10 +254,34 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   suggestionText: {
+    // flex: 1,
+    marginLeft: 10,
     fontSize: 16,
+    color: "#000",
   },
   noResults: {
     textAlign: "center",
     marginTop: 5,
+  },
+  imageSuggest: {
+    width: 80,
+    height: 80,
+    borderRadius: 10,
+    // marginLeft: 10,
+    // paddingRight: 20,
+    backgroundColor: "#ccc",
+    overflow: "hidden",
+    borderColor: "#ccc",
+    borderWidth: 1,
+  },
+  suggestionDesc: {
+    marginTop: 5,
+    fontSize: 14,
+    color: "#888",
+    // flex: 1,
+    lineHeight: 22,
+    marginLeft: 10,
+    marginRight: 10,
+    overflow: "hidden",
   },
 });

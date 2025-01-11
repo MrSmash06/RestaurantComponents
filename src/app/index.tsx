@@ -5,6 +5,7 @@ import Profile from "./components/Profile/Profile";
 import Test from "./components/Tests/Test";
 import ProfileButtonBar from "./components/Profile/ProfileButtonBar";
 import Home from "./components/Home/Home";
+import ServerImage from "./components/Tests/ServerImage";
 
 const index = () => {
   return (
@@ -13,6 +14,7 @@ const index = () => {
       {/* <Profile /> */}
       {/* <ProfileButtonBar /> */}
       {/* <Test /> */}
+      {/* <ServerImage /> */}
     </View>
   );
 };

@@ -76,8 +76,3 @@ This is a React Native project for a user profile page. It includes various comp
 ## License
 
 Licensed under the MIT License.
-
-```
-
-Feel free to copy and paste this into your `README.md` file! If you need any more adjustments, just let me know.
-```

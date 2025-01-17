@@ -63,11 +63,11 @@ const SearchRestro = () => {
       setSuggestions([]);
       return;
     }
-    fetch(`http://192.168.1.3:3000/api/search?term=${searchText}`)
+    fetch(`http://192.168.149.104:3000/api/search?term=${searchText}`)
       .then((response) => response.json())
       .then((data) => {
         setSuggestions(data.results);
-        console.log(data);
+        // console.log(data);
       })
       .catch((error) => {
         console.error("Error fetching search results:", error);
@@ -80,7 +80,7 @@ const SearchRestro = () => {
         alert(
           `You pressed hotel : ${item.name} and its description : ${item.description}`
         );
-        console.log(item.name, item.url);
+        // console.log(item.name, item.url);
       }}
       style={[
         styles.suggestionItem,

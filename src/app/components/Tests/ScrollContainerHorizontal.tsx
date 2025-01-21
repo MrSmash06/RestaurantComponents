@@ -1,3 +1,4 @@
+import React, { useRef, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -6,7 +7,6 @@ import {
   Image,
   Dimensions,
 } from "react-native";
-import React, { useRef, useEffect, useState } from "react";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -48,28 +48,23 @@ const data = [
   },
 ];
 
-// Add first and last items for the loop
-const loopData = [
-  { ...data[data.length - 1], id: "0" }, // Duplicate last item at the start
-  ...data,
-  { ...data[0], id: `${data.length + 1}` }, // Duplicate first item at the end
-];
-
 const ScrollContainerHorizontal = () => {
   const flatListRef = useRef(null);
-  const [currentIndex, setCurrentIndex] = useState(1); // Start at the first "real" item
+  const [currentIndex, setCurrentIndex] = useState(0);
   const intervalRef = useRef(null);
   const isInteracting = useRef(false);
 
   useEffect(() => {
     startAutoScroll();
-    return () => clearAutoScroll(); // Cleanup interval on unmount
+    return () => clearAutoScroll();
   }, []);
 
   const startAutoScroll = () => {
     intervalRef.current = setInterval(() => {
       if (!isInteracting.current) {
-        setCurrentIndex((prevIndex) => prevIndex + 1);
+        setCurrentIndex((prevIndex) =>
+          prevIndex === data.length - 1 ? 0 : prevIndex + 1
+        );
       }
     }, 5000);
   };
@@ -83,38 +78,12 @@ const ScrollContainerHorizontal = () => {
     clearAutoScroll();
   };
 
-  const handleScrollEnd = () => {
-    isInteracting.current = false;
-    startAutoScroll();
-  };
-
-  useEffect(() => {
-    if (flatListRef.current) {
-      flatListRef.current.scrollToIndex({
-        index: currentIndex,
-        animated: true,
-      });
-    }
-  }, [currentIndex]);
-
-  const onMomentumScrollEnd = (event) => {
+  const handleScrollEnd = (event) => {
     const offsetX = event.nativeEvent.contentOffset.x;
-    const index = Math.round(offsetX / (screenWidth * 0.8 + 20));
-
-    if (index === 0) {
-      // User scrolled to the duplicate of the last item, jump to the real last item
-      setCurrentIndex(data.length);
-      flatListRef.current.scrollToIndex({
-        index: data.length,
-        animated: false,
-      });
-    } else if (index === loopData.length - 1) {
-      // User scrolled to the duplicate of the first item, jump to the real first item
-      setCurrentIndex(1);
-      flatListRef.current.scrollToIndex({ index: 1, animated: false });
-    } else {
-      setCurrentIndex(index);
-    }
+    const newIndex = Math.round(offsetX / screenWidth); // Calculate the correct index based on the scroll offset
+    setCurrentIndex(newIndex); // Update the current index
+    isInteracting.current = false; // Reset interaction flag
+    startAutoScroll(); // Restart the auto-scroll after manual interaction
   };
 
   const renderItem = ({ item }) => (
@@ -125,25 +94,34 @@ const ScrollContainerHorizontal = () => {
     </View>
   );
 
+  useEffect(() => {
+    if (flatListRef.current) {
+      flatListRef.current.scrollToIndex({
+        index: currentIndex,
+        animated: true,
+      });
+    }
+  }, [currentIndex]);
+
   return (
     <View style={{ height: "100%", width: "100%" }}>
       <View style={styles.container}>
         <FlatList
           ref={flatListRef}
-          data={loopData}
+          data={data}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
           horizontal
           showsHorizontalScrollIndicator={false}
           snapToAlignment="start"
-          snapToInterval={screenWidth * 0.8 + 20} // Card width + spacing
+          snapToInterval={screenWidth} // Match the card width
           decelerationRate="fast"
-          onScrollBeginDrag={handleScrollBegin}
-          onMomentumScrollEnd={onMomentumScrollEnd}
-          contentContainerStyle={{ paddingHorizontal: 20 }}
+          onScrollBeginDrag={handleScrollBegin} // Detect manual interaction
+          onMomentumScrollEnd={handleScrollEnd} // Handle snap and reset timer
+          contentContainerStyle={{}}
           getItemLayout={(data, index) => ({
-            length: screenWidth * 0.8 + 20,
-            offset: (screenWidth * 0.8 + 20) * index,
+            length: screenWidth,
+            offset: screenWidth * index,
             index,
           })}
         />
@@ -159,8 +137,9 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
   },
   card: {
-    width: screenWidth * 0.8, // Adjust card width for partial view
-    marginRight: 20, // Space between cards
+    paddingLeft: "10%",
+    paddingRight: "10%",
+    width: screenWidth, // Full screen width for each card
     backgroundColor: "white",
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },

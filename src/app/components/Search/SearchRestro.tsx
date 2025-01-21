@@ -12,6 +12,7 @@ import {
   Image,
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -42,6 +43,8 @@ const SearchRestro = () => {
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
 
+  const router = useRouter();
+
   // Listen for keyboard show/hide events
   useEffect(() => {
     const showSub = Keyboard.addListener("keyboardDidShow", () =>
@@ -63,7 +66,7 @@ const SearchRestro = () => {
       setSuggestions([]);
       return;
     }
-    fetch(`http://192.168.149.104:3000/api/search?term=${searchText}`)
+    fetch(`http://192.168.1.4:3000/api/search?term=${searchText}`)
       .then((response) => response.json())
       .then((data) => {
         setSuggestions(data.results);
@@ -77,9 +80,11 @@ const SearchRestro = () => {
   const renderItem = ({ item }) => (
     <TouchableOpacity
       onPress={() => {
-        alert(
-          `You pressed hotel : ${item.name} and its description : ${item.description}`
-        );
+        // alert(
+        //   `Id: ${item.id} You pressed hotel : ${item.name} and its description : ${item.description} `
+        // );
+        // router.push(`/components/Search/SearchedRestro?id=${item.id}`);
+        router.push(`/components/Tests/Home?id=${item.id}`);
         // console.log(item.name, item.url);
       }}
       style={[

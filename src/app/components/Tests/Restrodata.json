@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1231,
+    "name": "SPICE NATION",
+    "offer": ["10%", "50%", "60%"],
+    "Description": "Buy 1 Get 1 free on Monday/Friday",
+    "time": "20 min",
+    "far": "2 km"
+  },
+  {
+    "id": 1232,
+    "name": "MADHV KATHYAVADI RESTAURANTS",
+    "offer": ["10%", "50%", "60%"],
+    "Description": "Order your favorite dish and get another of equal or lesser value absolutely free!",
+    "time": "25 min",
+    "far": "2.5 km"
+  },
+  {
+    "id": 1233,
+    "name": "BARBEQUE NATION",
+    "offer": ["10%", "50%", "60%"],
+    "Description": "Treat your family to a sumptuous meal with our budget-friendly family combo platters!",
+    "time": "35 min",
+    "far": "3.5 km"
+  },
+  {
+    "id": 1234,
+    "name": "SWAGAT CORNER",
+    "offer": ["10%", "50%", "60%"],
+    "Description": "Celebrate your special day with a free dessert or drink on the house!",
+    "time": "10 min",
+    "far": "1 km"
+  },
+  {
+    "id": 1235,
+    "name": "APNA PANJABI KHANA",
+    "offer": ["10%", "50%", "60%"],
+    "Description": "Show your student ID and enjoy a flat 15% discount on all menu items!",
+    "time": "15 min",
+    "far": "1.5 km"
+  }
+]

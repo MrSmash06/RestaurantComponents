@@ -10,18 +10,26 @@ import ScrollImage from "./components/Universal/ScrollImage";
 import HomeScreen from "./components/Tests/HomeScreen";
 import { DataProvider } from "./components/Tests/DataContext";
 import ScrollContainerHorizontal from "./components/Tests/ScrollContainerHorizontal";
+import ScrollCursor from "./components/Tests/ScrollCursor";
+import FlipkartCards from "./components/Tests/FlipkartCards";
+import HomePage from "./components/Tests/HomePage";
+import SwiperScroll from "./components/Tests/SwiperScroll";
 
 const index = () => {
   return (
     <View style={styles.scroll}>
-      {/* <Home /> */}
+      <Home />
       {/* <Profile /> */}
       {/* <ProfileButtonBar /> */}
       {/* <Test /> */}
       {/* <ServerImage /> */}
       {/* <ScrollImage /> */}
       {/* <HomeScreen /> */}
-      <ScrollContainerHorizontal />
+      {/* <ScrollContainerHorizontal /> */}
+      {/* <ScrollCursor /> */}
+      {/* <FlipkartCards /> */}
+      {/* <HomePage /> */}
+      {/* <SwiperScroll /> */}
     </View>
     // <DataProvider>
     //   <HomeScreen />

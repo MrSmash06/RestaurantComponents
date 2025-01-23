@@ -84,7 +84,7 @@ const SearchRestro = () => {
         //   `Id: ${item.id} You pressed hotel : ${item.name} and its description : ${item.description} `
         // );
         // router.push(`/components/Search/SearchedRestro?id=${item.id}`);
-        router.push(`/components/Tests/Home?id=${item.id}`);
+        router.push(`/components/Search/SearchedRestro?id=${item.id}`);
         // console.log(item.name, item.url);
       }}
       style={[

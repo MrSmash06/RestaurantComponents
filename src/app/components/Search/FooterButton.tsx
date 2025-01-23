@@ -6,11 +6,20 @@ import {
   Dimensions,
 } from "react-native";
 import React from "react";
+import { useRouter, useLocalSearchParams } from "expo-router";
 
 const { height: screenHeight, width: screenWidth } = Dimensions.get("window");
+const route = useRouter();
 
-const FooterButton = ({ title }: { title: string }) => (
-  <TouchableOpacity style={styles.footerButton}>
+const FooterButton = ({ title, id }) => (
+  // const router = useRouter();
+
+  <TouchableOpacity
+    style={styles.footerButton}
+    onPress={() => {
+      console.log(id);
+      route.push(`/components/Search/Menu?id=${id}`);
+    }}>
     <Text style={styles.footerButtonText}>{title}</Text>
   </TouchableOpacity>
 );

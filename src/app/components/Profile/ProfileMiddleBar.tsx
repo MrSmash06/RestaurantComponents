@@ -45,6 +45,12 @@ const ProfileMiddleBar = () => {
       color: "#32CD32",
       path: "/components/About/About",
     },
+    5: {
+      id: "5",
+      title: "Sign Out",
+      iconName: "log-out",
+      color: "#FF0000",
+    },
   };
 
   const systemTheme = useColorScheme();

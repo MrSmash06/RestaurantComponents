@@ -155,7 +155,7 @@ const SearchedRestro = () => {
 
         {/* Footer Section */}
         <View style={styles.footer}>
-          <FooterButton title="Menu" />
+          <FooterButton title="Menu" id={id} />
           <FooterButton title="Book" />
         </View>
       </View>
